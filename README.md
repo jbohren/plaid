@@ -1,6 +1,6 @@
 
-Accelerate Your ros2 Development with plaid
-===========================================
+Accelerate ros2 Development with plaid
+======================================
 
 _Spaceballs The Film_ inspired a lot of the original
 terminology in ROS. This repository contains tools and 
