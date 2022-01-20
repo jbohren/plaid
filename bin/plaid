@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import argparse
+import subprocess
+
+def cmd_source(args):
+    if 'PLAID_WS_PATH' in os.environ:
+        print('$PLAID_WS_PATH already defined:\n{}'.format(os.environ['PLAID_WS_PATH']))
+        sys.exit(1)
+
+    shell_exe = os.environ.get('SHELL')
+
+    if args.path:
+        path = args.path
+    else:
+        path = os.getcwd()
+
+    while len(path) > 1:
+        install_setup_file = os.path.join(
+                path,
+                'install',
+                'setup.bash')
+
+        environ = dict(os.environ)
+
+        environ['PLAID_WS_PATH'] = path
+
+        if os.path.exists(install_setup_file):
+            print('Loading setup file:\n{}'.format(install_setup_file))
+            os.execve(
+                shell_exe,
+                [
+                    'bash',
+                    '-c',
+                    'source {} && /bin/bash -l'.format(install_setup_file),
+                    ],
+                environ
+                )
+            return
+
+        path, tail = os.path.split(path)
+
+def cmd_ws(args):
+    if 'PLAID_WS_PATH' not in os.environ:
+        print('No $PLAID_WS_PATH defined.')
+        sys.exit(1)
+
+    os.chdir(os.environ['PLAID_WS_PATH'])
+
+    os.execvp(
+            args.command,
+            [args.command] + args.arg)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+            description='Go faster.')
+
+    subparsers = parser.add_subparsers(
+            dest='subcommand',
+            help='Subcommands')
+    sp_source = subparsers.add_parser(
+            'source',
+            help='Source a ros workspace and create a subshell.')
+    sp_source.add_argument('path',
+            nargs='?',
+            default=None,
+            help="The path to the workspace to be sourced. By default, source the closest enclosing workspace.")
+
+    sp_ws = subparsers.add_parser(
+            'ws',
+            help='Run a command at the root of the workspace.')
+    sp_ws.add_argument('command'
+            )
+    sp_ws.add_argument('arg',
+            nargs='*')
+
+    args = parser.parse_args()
+
+    if args.subcommand == 'source':
+        cmd_source(args)
+    elif args.subcommand == 'ws':
+        cmd_ws(args)
+    else:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
+
+    print(args)
+
+
+if __name__ == '__main__':
+    main()
