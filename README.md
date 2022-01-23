@@ -19,3 +19,17 @@ plaid source [PATH]
 Run a command at the root of the current workspace:
 ```
 plaid ws COMMAND [ARG...]
+```
+
+Set a workspace nickname:
+```
+plaid nick set NICKNAME
+```
+
+### Eye Candy
+
+To add an optional workspace nickname to your prompt, add the following to your profile file:
+
+```
+export PS1="$PLAID_PROMPT_PREFIX$PS1"
+```
