@@ -3,10 +3,15 @@ Accelerate ros2 Development with plaid
 ======================================
 
 _Spaceballs The Film_ inspired a lot of the original
-terminology in ROS. This repository pays homage to that era and
-contains tools and guidelines to accelerate development with ros2.
+terminology in ROS. This repository pays homage to that era
+and contains tools and opinionated guidelines to accelerate
+development with ros2.
 
 <img src="https://raw.githubusercontent.com/jbohren/plaid/master/doc/plaid.gif" width="250">
+
+## Opinionated Guideline Topics
+
+- [launchfiles](topics/launchfiles.md)
 
 ## plaid CLI Tool
 
