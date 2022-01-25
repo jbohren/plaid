@@ -45,8 +45,7 @@ def cmd_nick(args):
 
 def cmd_source(args):
     if 'PLAID_WS_PATH' in os.environ:
-        print('$PLAID_WS_PATH already defined:\n{}'.format(os.environ['PLAID_WS_PATH']))
-        sys.exit(1)
+        print('WARNING: $PLAID_WS_PATH already defined:\n{}'.format(os.environ['PLAID_WS_PATH']))
 
     shell_exe = os.environ.get('SHELL')
 
