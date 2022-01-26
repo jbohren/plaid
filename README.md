@@ -13,6 +13,7 @@ development with ros2.
 
 - [ament](topics/ament.md)
 - [launchfiles](topics/launchfiles.md)
+- [robot models](topics/robot_models.md)
 
 ## plaid CLI Tool
 
