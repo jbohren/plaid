@@ -85,14 +85,14 @@ def cmd_source(args):
 
         path, tail = os.path.split(path)
 
-def cmd_ws(args):
+def cmd_ws(command, args):
     ws_path = get_ws_path()
 
     os.chdir(os.environ['PLAID_WS_PATH'])
 
     os.execvp(
-            args.command,
-            [args.command] + args.arg)
+            command,
+            [command] + args)
 
 
 def main():
@@ -115,8 +115,6 @@ def main():
             help='Run a command at the root of the workspace.')
     sp_ws.add_argument('command'
             )
-    sp_ws.add_argument('arg',
-            nargs='*')
 
     sp_nick = subparsers.add_parser(
             'nick',
@@ -133,12 +131,12 @@ def main():
             'prompt',
             help='Get a prompt command to be used with: eval $(plaid nick prompt)')
 
-    args = parser.parse_args()
+    args, unknown = parser.parse_known_args()
 
     if args.subcommand == 'source':
         cmd_source(args)
     elif args.subcommand == 'ws':
-        cmd_ws(args)
+        cmd_ws(args.command, unknown)
     elif args.subcommand == 'nick':
         cmd_nick(args)
     else:

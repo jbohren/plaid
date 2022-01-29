@@ -15,6 +15,10 @@ development with ros2.
 - [launchfiles](topics/launchfiles.md)
 - [robot models](topics/robot_models.md)
 
+## Other Notable Opinions
+
+- https://snorriheim.atlassian.net/wiki/spaces/TechnicalNotes/pages/1179692/Ros
+
 ## plaid CLI Tool
 
 The `plaid` command line tool provides shortcuts for working with ros2 workspaces.
@@ -34,6 +38,13 @@ plaid ws COMMAND [ARG...]
 Set a workspace nickname:
 ```
 plaid nick set NICKNAME
+```
+
+### Shell Functions
+
+Add this to your bashrc:
+```
+source plaid_functions.bash
 ```
 
 ### Eye Candy
