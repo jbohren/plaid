@@ -94,6 +94,23 @@ def cmd_ws(command, args):
             command,
             [command] + args)
 
+def cmd_build(args):
+    ws_path = get_ws_path()
+
+    os.chdir(os.environ['PLAID_WS_PATH'])
+
+    this_package = []
+    if args.this:
+        pass
+
+    build_args = []
+    if len(this_package + args.package) > 0:
+        build_args = ['--packages-select'] + args.package + this_package
+
+    os.execvp(
+            'colcon',
+            ['colcon', 'build'] + build_args )
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -115,6 +132,12 @@ def main():
             help='Run a command at the root of the workspace.')
     sp_ws.add_argument('command'
             )
+
+    sp_build = subparsers.add_parser(
+            'build',
+            help='Build the workspace.')
+    sp_build.add_argument('--this')
+    sp_build.add_argument('package', nargs='*')
 
     sp_nick = subparsers.add_parser(
             'nick',
@@ -139,6 +162,8 @@ def main():
         cmd_ws(args.command, unknown)
     elif args.subcommand == 'nick':
         cmd_nick(args)
+    elif args.subcommand == 'build':
+        cmd_build(args)
     else:
         parser.print_help(sys.stderr)
         sys.exit(1)
