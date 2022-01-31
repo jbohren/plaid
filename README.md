@@ -23,6 +23,11 @@ development with ros2.
 
 The `plaid` command line tool provides shortcuts for working with ros2 workspaces.
 
+To use it, add the following to your bash profile:
+```
+source /path/to/plaid/plaid_functions.bash
+```
+
 ### Workspace Management
 
 Source an enclosing workspace or one which encloses a particular path:
@@ -30,27 +35,26 @@ Source an enclosing workspace or one which encloses a particular path:
 plaid source [PATH]
 ```
 
-Run a command (e.g. `colcon build`) at the root of the current workspace:
+Move around a workspace
+```
+plaid cd [PKG]
+```
+
+Build specific packages (or the enclosing package):
+```
+plaid build [--this] [PKG [PKG..]]
+```
+
+Run a command (e.g. `find -name *.yaml`) at the root of the current workspace:
 ```
 plaid ws COMMAND [ARG...]
 ```
 
-Set a workspace nickname:
-```
-plaid nick set NICKNAME
-```
-
-### Shell Functions
-
-Add this to your bashrc:
-```
-source plaid_functions.bash
-```
-
 ### Eye Candy
 
-To add an optional workspace nickname to your prompt, add the following to your profile file:
+To add an optional workspace nickname to your prompt, add a file named
+`plaid.conf` to your workspace root containing:
 
-```
-export PS1="$PLAID_PROMPT_PREFIX$PS1"
+```bash
+PROMPT_PREFIX="[megamaid] "
 ```
