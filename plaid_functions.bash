@@ -16,6 +16,17 @@ function plaid() {
         fi
     }
 
+    function _list_pkgs() {
+        # list all packages in workspace
+
+        SPACE=src
+
+        while IFS= read -r package_file ; do
+            # get the package name
+            printf "$(xmllint --xpath 'string(//package/name)' $package_file) "
+        done <<< $(find "${PLAID_WS_PATH}/${SPACE}" -name package.xml)
+    }
+
     function _find_package() {
         local search_path=${PWD%/}
 
@@ -310,5 +321,39 @@ function plaid() {
     return $?
 }
 
+_plaid ()
+{
+    local i=1 cmd
+
+    while [[ "$i" -lt "$COMP_CWORD" ]] ; do
+        local s="${COMP_WORDS[i]}"
+        case "$s" in
+            -*) ;;
+            *)
+                cmd="$s"
+                break
+                ;;
+        esac
+        (( i++ ))
+    done
+
+    if [[ "$i" -eq "$COMP_CWORD" ]] ; then
+        local cur="${COMP_WORDS[COMP_CWORD]}"
+        COMPREPLY=($(compgen -W "build cd source ws" -- "$cur"))
+        return
+    fi
+
+    case "$cmd" in
+        cd|build)
+            local cur="${COMP_WORDS[COMP_CWORD]}"
+            COMPREPLY=($(compgen -W "$(_list_pkgs)" -- "$cur"))
+            return
+            ;;
+        *)
+            ;;
+    esac
+}
+
 # bash argument tab completion
-complete -W "build cd source ws" plaid
+complete -F _plaid plaid
+
