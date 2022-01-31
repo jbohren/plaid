@@ -2,7 +2,7 @@
 robot models
 ============
 
-## Don't use Xacro
+## Don't Use Xacro
 
 Xacro is an XML "macro" system intended to make it easier to create complex XML
 files, motivated by reducing repetition and increasing scalability of ros URDF
