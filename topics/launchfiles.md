@@ -12,7 +12,7 @@ start a set of processes, XML is a good place to start.
 Launch conflates the concepts of "nodes" with "executables" and this can create
 issues when launching complex executables which own more than one node. If the same node needs to be launched multiple times, use _namespaces_ instead.
 
-Specifically, avoid:
+Specifically, avoid the `name` attribute/argument like the following:
 
 ```xml
 <node name="barf" package="winnebago" exec="pilot"/>
