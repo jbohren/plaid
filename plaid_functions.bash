@@ -103,11 +103,15 @@ function plaid() {
     function sub_build() {
         POSITIONAL_ARGS=()
 
+        OPT_THIS=0
+
         while [[ $# -gt 0 ]]; do
             case $1 in
                 -h|--help)
                     echo "usage: plaid build [-t|--this] [PKG [PKG..]]"
                     echo "  Build packages in a colcon workspace."
+                    echo ""
+                    echo "  Flags in COLCON_BUILD_FLAGS variable in plaid.conf will be used."
                     echo ""
                     echo "postional:"
                     echo "  PKG [PKG..]  Name of packages to build."
@@ -140,10 +144,16 @@ function plaid() {
             POSITIONAL_ARGS+=("$package_name")
         fi
 
-        if [[ ${#POSITIONAL_ARGS[@]} -eq 0 ]] ; then
-            (cd $PLAID_WS_PATH && colcon build)
+        if [[ -e ${ws_root}/plaid.conf ]] ; then
+            . ${ws_root}/plaid.conf
         else
-            (cd $PLAID_WS_PATH && colcon build --packages-select ${POSITIONAL_ARGS[@]})
+            COLCON_BUILD_FLAGS=''
+        fi
+
+        if [[ ${#POSITIONAL_ARGS[@]} -eq 0 ]] ; then
+            (cd $PLAID_WS_PATH && colcon build $COLCON_BUILD_FLAGS)
+        else
+            (cd $PLAID_WS_PATH && colcon build $COLCON_BUILD_FLAGS --packages-select ${POSITIONAL_ARGS[@]})
         fi
     }
 
@@ -307,14 +317,14 @@ function plaid() {
         "" | "-h" | "--help")
             sub_help
             ;;
-        *)
+        build|cd|source|ws)
             shift
             sub_${subcommand} $@
-            if [ $? = -1 ] ; then
-                echo "error: '$subcommand' is not a valid command." >&2
-                echo "Run '$0 --help' for a list of valid commands." >&2
-                return 1
-            fi
+            ;;
+        *)
+            echo "error: '$subcommand' is not a valid command." >&2
+            echo "Run '$0 --help' for a list of valid commands." >&2
+            return 1
             ;;
     esac
 

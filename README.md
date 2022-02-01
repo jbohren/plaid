@@ -58,3 +58,11 @@ To add an optional workspace nickname to your prompt, add a file named
 ```bash
 PROMPT_PREFIX="[megamaid] "
 ```
+
+### Defaults
+
+To add build flag defaults, add the following to a `plaid.conf` file:
+
+```bash
+COLCON_BUILD_FLAGS="--symlink-install"
+```
