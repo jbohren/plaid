@@ -2,6 +2,14 @@
 
 mkdir -p ~/.grc
 
+which grc > /dev/null
+
+if [[ $? ]] ; then
+  echo "grc is installed"
+else
+  echo "Please install grc"
+fi
+
 if [[ -e ~/.grc/grc.conf ]] ; then
     cat ~/.grc/grc.conf | grep colcon > /dev/null
     if [[ ! $? ]] ; then

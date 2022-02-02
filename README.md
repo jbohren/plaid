@@ -20,9 +20,21 @@ development with ros2.
 
 - https://snorriheim.atlassian.net/wiki/spaces/TechnicalNotes/pages/1179692/Ros
 
+## Other User-Oriented Tooling
+
+- https://github.com/yossioo/ROS-Hacks
+
 ## plaid CLI Tool
 
 The `plaid` command line tool provides shortcuts for working with ros2 workspaces.
+
+Dependencies:
+ - [GNU bash](https://www.gnu.org/software/bash/)
+ - [GNU findutils](http://xmlsoft.org/xmllint.html)
+ - [xmllint](http://xmlsoft.org/xmllint.html)
+
+Optional:
+ - [grc](https://github.com/garabik/grc)
 
 To use it, add the following to your bash profile:
 ```
