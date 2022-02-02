@@ -2,7 +2,12 @@
 colcon
 ======
 
-## colcon_cd is slow
+## Don't Build CLI Tools on top of colcon
+
+ROS had the convenience function `roscd` to quickly navigate to a given package
+directory, and colcon provides a similar function `colcon_cd` which can be added
+to one's path optionally. However, since `colcon_cd` is built on top of the
+`colcon` command, it is severely performance-limited.
 
 On the first invocation of `colcon_cd`, it notifies you that the location of
 the package has been cached. Unfortunately, caching doesn't actually speed it
@@ -40,3 +45,6 @@ real    0m0.123s
 user    0m0.073s
 sys     0m0.053s
 ```
+
+Worse, if the user makes a typo, `colcon_cd` can take seconds to determine that
+the package doesn't exist, even in a small workspace of about 50 packages.
