@@ -12,6 +12,7 @@ development with ros2.
 ## Opinionated Guideline Topics
 
 - [ament](topics/ament.md)
+- [colcon](topics/colcon.md)
 - [launchfiles](topics/launchfiles.md)
 - [robot models](topics/robot_models.md)
 
@@ -50,14 +51,14 @@ Run a command (e.g. `find -name *.yaml`) at the root of the current workspace:
 plaid ws COMMAND [ARG...]
 ```
 
-### Workspace Configuratin File
+### Workspace Configuration File
 
-The `plaid` cli tool reads in varables from `plaid.conf` if it exists in the
+The `plaid` cli tool reads in variables from `plaid.conf` if it exists in the
 root of your workspace.
 
 #### Eye Candy
 
-To add an optional workspace nickname to your prompt, add the folowing to the `plaid.conf` file:
+To add an optional workspace nickname to your prompt, add the following to the `plaid.conf` file:
 
 ```bash
 PROMPT_PREFIX="[megamaid] "
