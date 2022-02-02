@@ -148,12 +148,13 @@ function plaid() {
             . ${ws_root}/plaid.conf
         else
             COLCON_BUILD_FLAGS=''
+            COLCON_BUILD_PREFIX=''
         fi
 
         if [[ ${#POSITIONAL_ARGS[@]} -eq 0 ]] ; then
-            (cd $PLAID_WS_PATH && colcon build $COLCON_BUILD_FLAGS)
+            (cd $PLAID_WS_PATH && $COLCON_BUILD_PREFIX colcon build $COLCON_BUILD_FLAGS)
         else
-            (cd $PLAID_WS_PATH && colcon build $COLCON_BUILD_FLAGS --packages-select ${POSITIONAL_ARGS[@]})
+            (cd $PLAID_WS_PATH && $COLCON_BUILD_PREFIX colcon build $COLCON_BUILD_FLAGS --packages-select ${POSITIONAL_ARGS[@]})
         fi
     }
 

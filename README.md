@@ -64,6 +64,14 @@ To add an optional workspace nickname to your prompt, add the following to the `
 PROMPT_PREFIX="[megamaid] "
 ```
 
+To run `colcon` with colored output, install the
+[grc](https://github.com/garabik/grc) configurations via [conf/grc/install.bash](conf/grc/install.bash)
+and add this to the `plaid.conf` file:
+
+```bash
+COLCON_BUILD_PREFIX='grc -s -e'
+```
+
 #### Build Flags
 
 To add build flags to each `plaid build` command, add the following to the

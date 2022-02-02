@@ -1,0 +1,63 @@
+#
+regexp=\[.+\]
+colors=bold white
+.........
+#
+regexp=>>>|<<<
+colors=bold white
+.........
+#
+regexp=^Starting
+colors=bold green
+.........
+#
+regexp=^Finished
+colors=bold blue
+.........
+#
+regexp=^Failed
+colors=bold red
+.........
+#
+regexp=^Aborted
+colors=bold yellow
+.........
+#
+regexp=^Summary
+colors=bold white
+.........
+#
+regexp=\b[^\s]*[Ee]rror[:\b\s]
+colors=bold red
+.........
+#
+regexp=(?i)\b[^\s]*exception[:\b\s]
+colors=bold red
+.........
+#
+regexp=(?i)\berror[:\b\s]
+colors=bold red
+.........
+#
+regexp=(?i)\bwarning[:\b\s]
+colors=bold yellow
+.........
+#
+regexp=\b[0-9]+\spackage[s]*\s(failed|aborted):
+colors=bold red
+.........
+#
+regexp=\b[0-9]+\spackage[s]*\shad\sstderr\soutput:
+colors=bold yellow
+.........
+#
+regexp=\b[0-9]+\spackage[s]*\snot\sprocessed
+colors=bold white
+.........
+#
+regexp=^--- stderr:\s.+
+colors=bold yellow
+.........
+#
+regexp=^---$
+colors=bold yellow
