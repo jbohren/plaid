@@ -165,10 +165,11 @@ function plaid() {
         while [[ $# -gt 0 ]]; do
             case $1 in
                 -h|--help)
-                    echo "usage: plaid source [-s|--subshell] [-f|--force] [PATH]"
+                    echo "usage: plaid source [-s|--subshell] [-f|--force] [NICK|PATH]"
                     echo "  Source a colcon workspace."
                     echo ""
                     echo "positional arguments:"
+                    echo "  NICK  The nickname of a workspace as defined in PLAID_WORKSPACES in '~/.config/plaid.conf'"
                     echo "  PATH  The path to a workspace. By default sources the enclosing workspace."
                     echo ""
                     echo "options:"
@@ -210,7 +211,21 @@ function plaid() {
         if [[ ${#POSITIONAL_ARGS[@]} -eq 0 ]] ; then
             ws_root=$(_get_ws_root)
         else
-            ws_root=$(realpath ${POSITIONAL_ARGS[0]})
+            # Check if positional arg is a nick or a path
+            PLAID_USER_CONF_FILE="$HOME/.config/plaid.conf"
+            if [[ -e "$PLAID_USER_CONF_FILE" ]] ; then
+                source $PLAID_USER_CONF_FILE
+            fi
+            ws_identifier="${POSITIONAL_ARGS[0]}"
+
+            # check if it's in the PLAID_WORKSPACES var
+            if [[ ${PLAID_WORKSPACES["$ws_identifier"]} ]] ; then
+                # assume it's a nick
+                ws_root=${PLAID_WORKSPACES["$ws_identifier"]}
+            else
+                # assume it's a path
+                ws_root=$(realpath ${ws_identifier})
+            fi
         fi
 
         setup_file="${ws_root}/${INSTALL_SETUP_FILE}"
