@@ -22,6 +22,7 @@ development with ros2.
 
 ## Other User-Oriented Tooling
 
+- https://github.com/MetroRobots/ros_command
 - https://github.com/yossioo/ROS-Hacks
 
 ## plaid CLI Tool
